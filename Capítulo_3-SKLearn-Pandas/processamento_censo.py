@@ -45,3 +45,4 @@ classe = label_classe.fit_transform(classe)
 #escalonar os atributos
 scaler = StandardScaler()
 previsores = scaler.fit_transform(previsores)
+
