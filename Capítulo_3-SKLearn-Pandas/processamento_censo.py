@@ -15,13 +15,12 @@ base = pd.read_csv('census.csv')
 previsores = base.iloc[:, 0:14].values
 classe = base.iloc[:,14].values
 
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+#importar libs
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
-
 
 #transformar as informações que estão em string para o formato discreto
 labelEncoder_previsores = LabelEncoder()
-labelEncoder_previsores.fit_transform(previsores[:, 1])
 
 #alterar na base de previsores para os valores discretos
 previsores[:, 1] = labelEncoder_previsores.fit_transform(previsores[:, 1])
@@ -33,7 +32,7 @@ previsores[:, 8] = labelEncoder_previsores.fit_transform(previsores[:, 8])
 previsores[:, 9] = labelEncoder_previsores.fit_transform(previsores[:, 9])
 previsores[:, 13] = labelEncoder_previsores.fit_transform(previsores[:, 13])
 
-#inicialização de variável
+#transformar valor para Dummy Variable
 one_hot_encoder = ColumnTransformer(
     [('one_hot_encoder', OneHotEncoder(categories='auto'), [1,3,5,6,7,8,9,13])], remainder='passthrough'
 )
@@ -43,3 +42,6 @@ previsores = one_hot_encoder.fit_transform(previsores).toarray()
 label_classe = LabelEncoder()
 classe = label_classe.fit_transform(classe)
 
+#escalonar os atributos
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
