@@ -43,4 +43,3 @@ previsores = one_hot_encoder.fit_transform(previsores).toarray()
 label_classe = LabelEncoder()
 classe = label_classe.fit_transform(classe)
 
-
