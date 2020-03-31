@@ -16,6 +16,8 @@ previsores = base.iloc[:, 0:14].values
 classe = base.iloc[:,14].values
 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+
 
 #transformar as informações que estão em string para o formato discreto
 labelEncoder_previsores = LabelEncoder()
@@ -32,9 +34,13 @@ previsores[:, 9] = labelEncoder_previsores.fit_transform(previsores[:, 9])
 previsores[:, 13] = labelEncoder_previsores.fit_transform(previsores[:, 13])
 
 #inicialização de variável
-one_hot_encoder = OneHotEncoder(categories=[1,3,5,6,7,8,9,13])
+one_hot_encoder = ColumnTransformer(
+    [('one_hot_encoder', OneHotEncoder(categories='auto'), [1,3,5,6,7,8,9,13])], remainder='passthrough'
+)
 previsores = one_hot_encoder.fit_transform(previsores).toarray()
 
 #transformar a classe para o formato discreto
 label_classe = LabelEncoder()
 classe = label_classe.fit_transform(classe)
+
+
