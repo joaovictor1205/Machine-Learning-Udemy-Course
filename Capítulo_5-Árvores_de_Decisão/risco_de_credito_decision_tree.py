@@ -23,7 +23,7 @@ previsores[:, 1] = label_encoder.fit_transform(previsores[:, 1])
 previsores[:, 2] = label_encoder.fit_transform(previsores[:, 2])
 previsores[:, 3] = label_encoder.fit_transform(previsores[:, 3])
 
-#importar Naive Bayes lib
+#importar Decision Tree lib
 from sklearn.tree import DecisionTreeClassifier, export
 classificador = DecisionTreeClassifier(criterion='entropy')
 classificador.fit(previsores, classe)
