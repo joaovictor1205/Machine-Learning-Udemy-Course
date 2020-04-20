@@ -43,10 +43,12 @@ b = np.zeros(shape=(previsores.shape[0], 1))
 
 #stratified k fold
 from sklearn.model_selection import StratifiedKFold
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 kfold = StratifiedKFold(n_splits = 10, shuffle = True, random_state = 0)
 resultados = []
+matrizes = []
+
 for indice_treinamento, indice_teste in kfold.split(previsores,
                                                     np.zeros(shape = (previsores.shape[0], 1))):
     #print('Indice treinamento: ', indice_treinamento,
@@ -54,7 +56,9 @@ for indice_treinamento, indice_teste in kfold.split(previsores,
     classificador.fit(previsores[indice_treinamento], classe[indice_treinamento])
     previsoes = classificador.predict(previsores[indice_teste])
     precisao = accuracy_score(classe[indice_teste], previsoes)
+    matrizes.append(confusion_matrix(classe[indice_teste], previsoes))
     resultados.append(precisao)
 
+matriz_final = np.mean(matrizes, axis = 0)
 resultados = np.asarray(resultados)
 resultados.mean()
