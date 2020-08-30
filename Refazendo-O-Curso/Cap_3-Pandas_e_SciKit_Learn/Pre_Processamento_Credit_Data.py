@@ -6,6 +6,7 @@ This is a temporary script file.
 """
 
 import pandas as pd
+import numpy as np
 
 data_frame = pd.read_csv('credit_data.csv')
 data_frame.describe()
@@ -21,3 +22,22 @@ data_frame.loc[data_frame['age'] < 0]
 data_frame.mean()
 media_idades = data_frame['age'][data_frame.age > 0].mean()
 data_frame.loc[data_frame.age < 0, 'age'] = media_idades
+
+
+# Separação do Data Frame em Previsores e Classe
+
+# Pegar todas as linhas das colunas de 1 a 3, sem a coluna 0, pois o ID não será utilizado
+previsores = data_frame.iloc[:, 1:4].values
+
+# Pegar todas as linhas da coluna 4
+classe = data_frame.iloc[:, 4].values
+
+
+# Dados inconsistentes -> valor não preenchido
+data_frame.loc[pd.isnull(data_frame['age'])]
+
+from sklearn.impute import SimpleImputer
+
+imputer = SimpleImputer()
+imputer = imputer.fit(previsores[:, 0:3])
+previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
