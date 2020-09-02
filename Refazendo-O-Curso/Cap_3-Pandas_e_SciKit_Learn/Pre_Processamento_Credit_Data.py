@@ -6,7 +6,6 @@ This is a temporary script file.
 """
 
 import pandas as pd
-import numpy as np
 
 data_frame = pd.read_csv('credit_data.csv')
 data_frame.describe()
@@ -41,3 +40,9 @@ from sklearn.impute import SimpleImputer
 imputer = SimpleImputer()
 imputer = imputer.fit(previsores[:, 0:3])
 previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
+
+# Escalonamento dos atributos
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
+
