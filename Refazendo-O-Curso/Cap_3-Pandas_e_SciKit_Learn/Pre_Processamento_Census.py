@@ -37,4 +37,10 @@ previsores = one_hot_encoder.fit_transform(previsores).toarray()
 
 # Transformando variáveis categórias em numéricas (classe)
 labelEncoder_class = LabelEncoder()
-previsores[:, 14] = labelEncoder_previsores.fit_transform(previsores[: ,14])
+classe = labelEncoder_class.fit_transform(previsores[: ,14])
+
+# Escalonamento dos valores
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
