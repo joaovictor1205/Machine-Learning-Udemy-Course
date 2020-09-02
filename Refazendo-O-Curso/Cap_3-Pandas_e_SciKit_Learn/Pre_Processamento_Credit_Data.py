@@ -46,3 +46,6 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 previsores = scaler.fit_transform(previsores)
 
+# Separação dos previsores em Treino e Teste
+from sklearn.model_selection import train_test_split
+previsores_treino, previsores_teste, classe_treino, classe_teste = train_test_split(previsores, classe, test_size=0.25, random_state=0)
