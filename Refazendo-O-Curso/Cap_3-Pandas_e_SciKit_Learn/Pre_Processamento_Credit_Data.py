@@ -7,7 +7,7 @@ This is a temporary script file.
 
 import pandas as pd
 
-data_frame = pd.read_csv('credit_data.csv')
+data_frame = pd.read_csv('../credit_data.csv')
 data_frame.describe()
 
 # Dados inconsistentes -> idade negativa
